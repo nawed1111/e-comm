@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 mongoose
-  .connect('mongodb://auth-mongo-srv:27017/auth', {
+  .connect(process.env.MONGODB_URI_AUTH!, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -14,8 +14,8 @@ mongoose
     console.log('Error connecting to MongoDB...', err.message);
   });
 
-mongoose.connection.on('disconnected', () => {
-  console.log('MongoDB disconnected...');
+mongoose.connection.on('disconnecting', () => {
+  console.log('MongoDB disconnecting...');
 });
 
 process.on('SIGINT', async () => {

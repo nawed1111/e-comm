@@ -18,7 +18,8 @@ router.post('/api/users/signin', async (req, res, next) => {
       );
     }
 
-    const checkPassword = existingUser.isValidPassword(result.password);
+    const checkPassword = await existingUser.isValidPassword(result.password);
+
     if (!checkPassword) {
       throw new createHttpError.Unauthorized('Invalid credentials entered');
     }
@@ -30,6 +31,7 @@ router.post('/api/users/signin', async (req, res, next) => {
 
     res.json({
       message: 'Log in success',
+      existingUser,
     });
   } catch (error) {
     if (error.isJoi) error.status = 422;

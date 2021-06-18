@@ -77,9 +77,9 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 
 userSchema.methods.isValidPassword = async function (password: string) {
   try {
-    return Password.compare(this.get('password'), password);
+    return Password.compare(password, this.get('password'));
   } catch (error) {
-    error.message = 'Wrong password. Please try again.';
+    error.message = 'User verification failed, please try again';
     throw error;
   }
 };

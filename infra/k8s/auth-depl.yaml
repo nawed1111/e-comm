@@ -21,6 +21,31 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+            - name: JWT_LIFE
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-life
+                  key: JWT_LIFE
+            - name: REFRESH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-secret
+                  key: REFRESH_KEY
+            - name: REFRESH_LIFE
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-life
+                  key: REFRESH_LIFE
+            - name: MONGODB_URI_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-uri-auth
+                  key: MONGODB_URI_AUTH
+            - name: JWT_ISSUER
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-issuer
+                  key: JWT_ISSUER
 ---
 apiVersion: v1
 kind: Service

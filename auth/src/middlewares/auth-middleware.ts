@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken } from '../helpers/jwt/jwt-helper';
 
 interface UserPayload {
-  aud: {
+  user: {
     fname: string;
     lname: string;
     email: string;
@@ -14,7 +14,7 @@ interface UserPayload {
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: UserPayload['aud'];
+      currentUser?: UserPayload['user'];
     }
   }
 }
@@ -26,7 +26,8 @@ export const authorization = async (
 ) => {
   try {
     const payload = (await verifyAccessToken(req.session?.jwt)) as UserPayload;
-    req.currentUser = payload.aud;
+    req.currentUser = payload.user;
+
     next();
   } catch (err) {
     next(err);

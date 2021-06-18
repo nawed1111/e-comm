@@ -6,7 +6,7 @@ export class Password {
     return await bcrypt.hash(password, salt);
   }
 
-  static async compare(storedPassword: string, suppliedPassword: string) {
-    return await bcrypt.compare(storedPassword, suppliedPassword);
+  static async compare(suppliedPassword: string, storedPassword: string) {
+    return await bcrypt.compare(suppliedPassword, storedPassword);
   }
 }
