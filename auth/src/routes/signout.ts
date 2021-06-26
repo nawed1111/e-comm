@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-import { authorization } from '../middlewares/auth-middleware';
+import { authorization } from '@nawedtickets/common';
 
 router.post('/api/users/signout', authorization, (req, res) => {
   req.session = null;

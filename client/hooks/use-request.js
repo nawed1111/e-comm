@@ -15,7 +15,7 @@ const useRequest = ({ url, method, body, onSuccess }) => {
       seterror(
         <div className="alert alert-danger">
           <h4>Ooops...</h4>
-          {error.response ?? error.response.data.error.message}
+          {error.response ? error.response.data.error.message : 'Unknown Error'}
         </div>
       );
     }

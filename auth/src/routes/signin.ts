@@ -5,7 +5,7 @@ const router = express.Router();
 
 import { loginSchema } from '../helpers/schema-validation/loginV';
 import { User } from '../models/user';
-import { signAccessToken, signRefreshToken } from '../helpers/jwt/jwt-helper';
+import { signAccessToken, signRefreshToken } from '@nawedtickets/common';
 
 router.post('/api/users/signin', async (req, res, next) => {
   try {
