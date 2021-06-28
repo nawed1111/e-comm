@@ -6,6 +6,8 @@ const router = express.Router();
 import { authorization } from '@nawedtickets/common';
 import { Ticket } from '../models/ticket';
 import { ticketSchema } from '../helpers/validator/ticketV';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
+import { natsWrapper } from '../helpers/initialize/nats-client';
 
 router.post('/api/tickets', authorization, async (req, res, next) => {
   try {
@@ -21,6 +23,14 @@ router.post('/api/tickets', authorization, async (req, res, next) => {
       ...result,
       userId: req.currentUser?.id,
     }).save();
+
+    // Publish the ticket:created event
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: newTicket.id,
+      title: newTicket.title,
+      price: newTicket.price,
+      userId: newTicket.userId,
+    });
 
     res.status(201).send(newTicket);
   } catch (error) {
