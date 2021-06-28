@@ -3,6 +3,8 @@ import { ticketSchema } from '../helpers/validator/ticketV';
 import { Ticket } from '../models/ticket';
 import createHttpError from 'http-errors';
 import { authorization } from '@nawedtickets/common';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
+import { natsWrapper } from '../helpers/initialize/nats-client';
 
 const router = express.Router();
 
@@ -25,6 +27,13 @@ router.put('/api/tickets/:id', authorization, async (req, res, next) => {
     }
 
     await ticket.set(result).save();
+
+    await new TicketUpdatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
 
     res.json(ticket);
   } catch (error) {
