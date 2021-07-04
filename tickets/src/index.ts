@@ -1,5 +1,8 @@
 import { app } from './app';
 import { natsWrapper } from './helpers/initialize/nats-client';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
+
 import './helpers/initialize/init-mongodb';
 
 natsWrapper
@@ -15,6 +18,9 @@ natsWrapper
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
 
     app.listen(3000, () => {
       console.log(`Listening on port 3000`);

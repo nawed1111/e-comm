@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: us.gcr.io/ticketing-dev-317020/orders
+          image: us.gcr.io/ticketing-318809/orders
           env:
             - name: PAYMENT_WINDOW_SECONDS
               value: '900'

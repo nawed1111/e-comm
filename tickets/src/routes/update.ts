@@ -26,6 +26,12 @@ router.put('/api/tickets/:id', authorization, async (req, res, next) => {
       );
     }
 
+    if (ticket.orderId) {
+      throw new createHttpError.Forbidden(
+        'Ticket is reserved, cannot be modified.'
+      );
+    }
+
     await ticket.set(result).save();
 
     await new TicketUpdatedPublisher(natsWrapper.client).publish({
@@ -33,6 +39,7 @@ router.put('/api/tickets/:id', authorization, async (req, res, next) => {
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.json(ticket);
