@@ -4,6 +4,8 @@ import { Ticket } from '../models/ticket';
 import { Order } from '../models/order';
 import { orderSchemaValidator } from '../helpers/validator/orderV';
 import { OrderStatus } from '@nawedtickets/common';
+import { natsWrapper } from '../helpers/initialize/nats-client';
+import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 
 import { authorization } from '@nawedtickets/common';
 
@@ -38,6 +40,18 @@ router.post('/api/orders', authorization, async (req, res, next) => {
     });
 
     await order.save();
+
+    new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      userId: order.userId,
+      version: order.version,
+      expiresAt: order.expiresAt.toISOString(),
+      ticket: {
+        id: order.ticket.id,
+        price: order.ticket.price,
+      },
+    });
 
     res.status(201).send(order);
   } catch (error) {
