@@ -2,6 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 import { natsWrapper } from '../../helpers/initialize/nats-client';
+import { Ticket } from '../../models/ticket';
 
 it('has a route handler listening to /api/tickets/:id for put request', async () => {
   const id = new mongoose.Types.ObjectId();
@@ -24,6 +25,7 @@ it('returns unauthorized error if user is not the owner', async () => {
     .expect(201);
 
   const id = response.body.id;
+
   await request(app)
     .put(`/api/tickets/${id}`)
     .set('Cookie', global.signin())
@@ -70,4 +72,29 @@ it('publishes an event', async () => {
     .send({ title: 'Testers updated', price: 9 });
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+it('rejects update to a reserved ticket', async () => {
+  const cookie = global.signin();
+  let response = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'Testers',
+      price: 100,
+    })
+    .expect(201);
+
+  const id = response.body.id;
+
+  const ticket = await Ticket.findById(id);
+  await ticket!
+    .set({ orderId: mongoose.Types.ObjectId().toHexString() })
+    .save();
+
+  await request(app)
+    .put(`/api/tickets/${id}`)
+    .set('Cookie', cookie)
+    .send({ title: 'Testers updated', price: 9 })
+    .expect(403);
 });

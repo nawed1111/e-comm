@@ -30,6 +30,7 @@ router.post('/api/tickets', authorization, async (req, res, next) => {
       title: newTicket.title,
       price: newTicket.price,
       userId: newTicket.userId,
+      version: newTicket.version,
     });
 
     res.status(201).send(newTicket);
