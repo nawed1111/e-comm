@@ -37,7 +37,10 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleted> {
 
       msg.ack();
     } catch (error) {
-      throw error;
+      console.error(
+        'Expiration complete listener :: order service',
+        error.stack
+      );
     }
   }
 }
