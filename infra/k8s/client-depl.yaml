@@ -15,6 +15,12 @@ spec:
       containers:
         - name: client
           image: us.gcr.io/ticketing-318809/client
+          env:
+            - name: STRIPE_PUBLISH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-publish-secret
+                  key: STRIPE_PUBLISH_KEY
 ---
 apiVersion: v1
 kind: Service
