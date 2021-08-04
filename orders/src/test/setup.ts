@@ -17,8 +17,8 @@ beforeAll(async () => {
   process.env.JWT_KEY = 'afjnakdbcnkabjsdckj';
   process.env.PAYMENT_WINDOW_SECONDS = '900';
 
-  mongo = new MongoMemoryServer();
-  const mongoUri = await mongo.getUri();
+  mongo = await MongoMemoryServer.create();
+  const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
