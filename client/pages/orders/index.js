@@ -1,5 +1,5 @@
 const OrderIndex = ({ orders }) => {
-  return (
+  return orders.length > 0 ? (
     <ul>
       {orders.map((order) => {
         return (
@@ -9,6 +9,8 @@ const OrderIndex = ({ orders }) => {
         );
       })}
     </ul>
+  ) : (
+    <h3>No orders placed</h3>
   );
 };
 

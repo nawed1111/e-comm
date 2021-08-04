@@ -5,7 +5,7 @@ import useRequest from '../../hooks/use-request';
 const NewTicket = () => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
-  const { doRequest, errors } = useRequest({
+  const { doRequest, error } = useRequest({
     url: '/api/tickets',
     method: 'post',
     body: {
@@ -52,7 +52,7 @@ const NewTicket = () => {
             className="form-control"
           />
         </div>
-        {errors}
+        {error}
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>
