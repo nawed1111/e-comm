@@ -5,7 +5,7 @@ import useRequest from '../../hooks/use-request';
 
 const OrderShow = ({ order, user }) => {
   const [timeLeft, setTimeLeft] = useState(0);
-  const { doRequest, errors } = useRequest({
+  const { doRequest, error } = useRequest({
     url: '/api/payments',
     method: 'post',
     body: {
@@ -37,12 +37,11 @@ const OrderShow = ({ order, user }) => {
       Time left to pay: {timeLeft} seconds
       <StripeCheckout
         token={({ id }) => doRequest({ token: id })}
-        // stripeKey="pk_test_FlLFVapGHTly3FicMdTU06SC006tWtWbNH"
-        stripeKey={process.env.STRIPE_PUBLISH_KEY}
+        stripeKey="pk_test_FlLFVapGHTly3FicMdTU06SC006tWtWbNH"
         amount={order.ticket.price * 100}
         email={user.email}
       />
-      {errors}
+      {error}
     </div>
   );
 };

@@ -19,8 +19,8 @@ beforeAll(async () => {
   process.env.REFRESH_LIFE = '1900';
   process.env.REFRESH_KEY = 'acjasdhcikasdbcuijas';
 
-  mongo = new MongoMemoryServer();
-  const mongoUri = await mongo.getUri();
+  mongo = await MongoMemoryServer.create();
+  const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
