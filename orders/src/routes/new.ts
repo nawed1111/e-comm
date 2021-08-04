@@ -13,7 +13,6 @@ const router = express.Router();
 
 router.post('/api/orders', authorization, async (req, res, next) => {
   const result = await orderSchemaValidator.validateAsync(req.body);
-  console.log('Starting...');
   try {
     const ticket = await Ticket.findById(result.ticketId);
     if (!ticket) {
