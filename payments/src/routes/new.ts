@@ -14,6 +14,7 @@ import { natsWrapper } from '../helpers/initialize/nats-client';
 const router = express.Router();
 
 router.post('/api/payments', authorization, async (req, res, next) => {
+  console.log('payments!!!');
   try {
     const result = await paymentValidator.validateAsync(req.body);
     const { token, orderId } = result;

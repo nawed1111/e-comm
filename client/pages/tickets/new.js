@@ -17,7 +17,7 @@ const NewTicket = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-
+    console.log('Submitted!!!');
     doRequest();
   };
 
