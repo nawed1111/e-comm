@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: us.gcr.io/ticketing-318809/auth
+          image: nawedanjum/auth
           env:
             - name: JWT_KEY
               valueFrom:
@@ -37,10 +37,7 @@ spec:
                   name: refresh-life
                   key: REFRESH_LIFE
             - name: MONGODB_URI_AUTH
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-uri-auth
-                  key: MONGODB_URI_AUTH
+              value: 'mongodb://auth-mongo-srv:27017/auth'
             - name: JWT_ISSUER
               valueFrom:
                 secretKeyRef:
