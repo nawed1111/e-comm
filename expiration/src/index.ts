@@ -8,6 +8,7 @@ natsWrapper
     process.env.NATS_URL!
   )
   .then(() => {
+    console.log('expiration::');
     natsWrapper.client.on('close', () => {
       console.log('NATS connection closed');
       process.exit();
