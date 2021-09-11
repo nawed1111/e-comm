@@ -30,10 +30,7 @@ spec:
                   name: jwt-secret
                   key: JWT_KEY
             - name: MONGODB_URI_TICKETS
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-uri-tickets
-                  key: MONGODB_URI_TICKETS
+              value: 'mongodb://tickets-mongo-srv:27017/tickets'
 ---
 apiVersion: v1
 kind: Service
