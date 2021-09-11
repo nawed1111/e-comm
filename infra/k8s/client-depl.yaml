@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/ticketing-318809/client
+          image: nawedanjum/client
           env:
             - name: STRIPE_PUBLISH_KEY
               valueFrom:
