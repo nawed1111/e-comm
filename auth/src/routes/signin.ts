@@ -9,6 +9,7 @@ import { signAccessToken, signRefreshToken } from '@nawedtickets/common';
 
 router.post('/api/users/signin', async (req, res, next) => {
   try {
+    console.log('Hey there!!!!!!!!!!!');
     const result = await loginSchema.validateAsync(req.body);
 
     const existingUser = await User.findOne({ email: result.email });
