@@ -40,7 +40,7 @@ cd orders npm start
 cd payments npm start
 cd tickets npm start
 ```
-After successfully running locally, you should be able to access the client [localhost:8000](http://127.0.0.1:3000/).
+After successfully running locally, you should be able to access the client [localhost:3000](http://127.0.0.1:3000/).
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
