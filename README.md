@@ -1,6 +1,6 @@
 # Ticketing
 
-Ticketing is an micro-services based e-commerce application developed using MERN stack. It uses Kubernetes and docker images to build the application. It is hosted in Digital Ocean and uses Github actions for CI/CD.
+Ticketing is a micro-service based e-commerce application developed using MERN stack. It uses Kubernetes and docker images to build the application. It is hosted in Digital Ocean and uses Github actions for CI/CD.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
